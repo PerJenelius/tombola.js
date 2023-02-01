@@ -1,59 +1,66 @@
 const app = {
-    radius: 420,
-    amnesty: []
+    radius: 330
 }
 
 const main = () => {
-    grantAmnesty();
     renderNametags();
+    renderNamelist();
 }
 
-const grantAmnesty = () => {
-    app.amnesty = [];
+const renderNamelist = () => {
+    const namelist = document.querySelector('#participantList');
     for (let i = 0; i < participants.length; i++) {
-        if (participants[i].amnesty) {
-            app.amnesty.push(i);
-        }
+        namelist.innerHTML += `<li><input type="checkbox" ${participants[i].amnesty ? '' : checked="checked"} onchange=updateStatus(${i}) /><span>${participants[i].name}</span></li>`;
     }
+}
+
+const clearNametags = () => {
+    const labels = document.querySelectorAll('.participant');
+    labels.forEach(label => {
+        label.remove();
+    });
 }
 
 const renderNametags = () => {
     const marginLeft = window.innerWidth / 2 - app.radius;
     const marginTop = window.innerHeight / 2 - app.radius;
-    for (let i = 0; i < participants.length; i++) {
-        const angle = (i / (participants.length / 2)) * Math.PI;
+    const partypants = participants.filter(p => !p.amnesty);
+    for (let i = 0; i < partypants.length; i++) {
+        const angle = (i / (partypants.length / 2)) * Math.PI;
         const left = marginLeft + (app.radius * Math.cos(angle)) + app.radius - 45;
         const top = marginTop + (app.radius * Math.sin(angle)) + app.radius - 35;
         document.querySelector('#tombola').innerHTML +=
-            `<p class="participant ${ participants[i].amnesty ? 'amnesty' : ''}" id="${i}" style="top:${top}px; left:${left}px">${participants[i].name}</p>`;
+            `<p class="participant" id="${i}" style="top:${top}px; left:${left}px">${partypants[i].name}</p>`;
     }
 }
 
+const updateStatus = (index) => {
+    participants[index].amnesty = !participants[index].amnesty;
+    clearNametags();
+    renderNametags();
+}
+
 const startTheWheel = () => {
-    let random = 0;
-
-    do {
-        random = Math.floor(Math.random() * participants.length);
-    } while (app.amnesty.includes(random))
-
-    const angle = random * (360 / participants.length);
+    const partypants = participants.filter(p => !p.amnesty);
+    const random = Math.floor(Math.random() * partypants.length);
+    const fakeSpins = Math.ceil(Math.random() * 5);
+    const angle = random * (360 / partypants.length);
 
     document.querySelector('#pointerArm').style.transform = 'none';
-    for (let nameLabel of document.getElementsByClassName('participant')) {
+    for (let nameLabel of document.querySelectorAll('.participant')) {
         nameLabel.classList.remove('chosen');
     }
 
-    for (let i = 0; i <= (2 * 360 + angle); i++) {
-        (function(j, myCallback) {
+    for (let i = 0; i <= (fakeSpins * 360 + angle); i++) {
+        (function(j) {
             setTimeout(() => {
                 document.querySelector('#pointerArm').style.transform = `rotate(${i}deg)`;
-            }, 2.5 * j);
+                if (i === fakeSpins * 360 + angle) {
+                    document.getElementById(random).classList.add('chosen');
+                }
+            }, 2 * j);
         })(i)
     }
-
-    window.setTimeout(() => {
-        document.getElementById(random).classList.add('chosen');
-    }, (3 * 2 * 360) + angle)
 }
 
 if (document.readyState === 'complete' || (document.readyState !== 'loading' && !document.documentElement.doScroll)) {

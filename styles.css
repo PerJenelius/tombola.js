@@ -7,18 +7,20 @@ body {
     height: 100vh;
     display: flex;
     background-image: url('/assets/wallpaper.png');
+    background-repeat: repeat;
 }
 .pointerFrame {
-    width: 1000px;
-    height: 1000px;
+    width: 800px;
+    height: 800px;
     margin: auto;
     vertical-align: middle;
     display: flex;
     background-image: url('/assets/pointer_armless.png');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: contain;
     background-color: #fff;
-    border-radius: 500px;
+    border-radius: 400px;
 }
 .participant {
     position: absolute;
@@ -26,7 +28,7 @@ body {
     padding: 2px 12px;
     border-radius: 40px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 18px;
+    font-size: 1.25rem;
     text-align: center;
 }
 .amnesty {
@@ -40,9 +42,6 @@ body {
 .pointerArm {
     margin: auto;
     vertical-align: middle;
-    position: relative;
-    top: -52px;
-    right: 0;
 }
 .start {
     position: absolute;
@@ -52,13 +51,32 @@ body {
     border-radius: 40px;
     border: none;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 18px;
+    font-size: 1.25rem;
     background-color: #fff;
     color: #000;
 }
 .start:hover {
     background-color: #000;
     color: #fff;
+}
+.participantList {
+    margin: 0;
+    padding: 0.5em;
+    border-radius: 8px;
+    position: absolute;
+    top: 5em;
+    left: 1.25em;
+    background-color: #fff;
+    list-style-type: none;
+}
+.participantList li {
+    padding: 0.2em;
+}
+.participantList span {
+    display: inline-block;
+    margin-left: 0.5em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1rem;
 }
 .spin {
     -webkit-animation:spin 1s linear infinite;
