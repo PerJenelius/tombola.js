@@ -1,7 +1,3 @@
-const app = {
-    radius: 330
-}
-
 const main = () => {
     renderNametags();
     renderNamelist();
@@ -22,13 +18,14 @@ const clearNametags = () => {
 }
 
 const renderNametags = () => {
-    const marginLeft = window.innerWidth / 2 - app.radius;
-    const marginTop = window.innerHeight / 2 - app.radius;
+    const radius = document.querySelector('.pointerFrame').offsetWidth / 2 - 70;
+    const marginLeft = window.innerWidth / 2 - radius;
+    const marginTop = window.innerHeight / 2 - radius;
     const partypants = participants.filter(p => !p.amnesty);
     for (let i = 0; i < partypants.length; i++) {
         const angle = (i / (partypants.length / 2)) * Math.PI;
-        const left = marginLeft + (app.radius * Math.cos(angle)) + app.radius - 45;
-        const top = marginTop + (app.radius * Math.sin(angle)) + app.radius - 35;
+        const left = marginLeft + (radius * Math.cos(angle)) + radius - 50;
+        const top = marginTop + (radius * Math.sin(angle)) + radius - 50;
         document.querySelector('#tombola').innerHTML +=
             `<p class="participant" id="${i}" style="top:${top}px; left:${left}px">${partypants[i].name}</p>`;
     }
