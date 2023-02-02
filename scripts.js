@@ -1,3 +1,5 @@
+'use strict';
+
 const app = {
     backgrundColors: [
         '#9400d3',
@@ -27,7 +29,7 @@ const main = () => {
 const renderNamelist = () => {
     const namelist = document.querySelector('#participantList');
     for (let i = 0; i < participants.length; i++) {
-        namelist.innerHTML += `<li><input type="checkbox" ${participants[i].amnesty ? '' : checked="checked"} onchange=updateStatus(${i}) /><span>${participants[i].name}</span></li>`;
+        namelist.innerHTML += `<li><input type="checkbox" ${participants[i].amnesty ? '' : 'checked'} onchange=updateStatus(${i}) /><span>${participants[i].name}</span></li>`;
     }
 }
 
