@@ -43,11 +43,13 @@ const renderNametags = () => {
     const marginLeft = window.innerWidth / 2 - radius;
     const marginTop = window.innerHeight / 2 - radius;
     const partypants = participants.filter(p => !p.amnesty);
+
     for (let i = 0; i < partypants.length; i++) {
         const colorIndex = i % app.backgrundColors.length;
         const angle = (i / (partypants.length / 2)) * Math.PI;
         const left = marginLeft + (radius * Math.cos(angle)) + radius - 50;
         const top = marginTop + (radius * Math.sin(angle)) + radius - 50;
+        
         document.querySelector('#tombola').innerHTML +=
             `<p class="participant" id="${i}" 
                 style="top:${top}px; left:${left}px; background-color: ${app.backgrundColors[colorIndex]}; color: ${app.colors[colorIndex]};">
