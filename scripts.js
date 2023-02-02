@@ -1,3 +1,24 @@
+const app = {
+    backgrundColors: [
+        '#9400d3',
+        '#4b0082',
+        '#0000ff',
+        '#00ff00',
+        '#ffff00',
+        '#ff7f00',
+        '#ff0000'
+    ],
+    colors: [
+        '#fff',
+        '#fff',
+        '#fff',
+        '#000',
+        '#000',
+        '#000',
+        '#fff'
+    ]
+}
+
 const main = () => {
     renderNametags();
     renderNamelist();
@@ -23,11 +44,15 @@ const renderNametags = () => {
     const marginTop = window.innerHeight / 2 - radius;
     const partypants = participants.filter(p => !p.amnesty);
     for (let i = 0; i < partypants.length; i++) {
+        const colorIndex = i % app.backgrundColors.length;
         const angle = (i / (partypants.length / 2)) * Math.PI;
         const left = marginLeft + (radius * Math.cos(angle)) + radius - 50;
         const top = marginTop + (radius * Math.sin(angle)) + radius - 50;
         document.querySelector('#tombola').innerHTML +=
-            `<p class="participant" id="${i}" style="top:${top}px; left:${left}px">${partypants[i].name}</p>`;
+            `<p class="participant" id="${i}" 
+                style="top:${top}px; left:${left}px; background-color: ${app.backgrundColors[colorIndex]}; color: ${app.colors[colorIndex]};">
+                ${partypants[i].name}
+            </p>`;
     }
 }
 

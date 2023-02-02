@@ -26,10 +26,8 @@ body {
     height: 30px;
     width: 100px;
     position: absolute;
-    background-color: #fff;
     margin: 0;
     padding: 35px 0;
-    border: 1px solid #000;
     border-radius: 50px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 1.25rem;
@@ -39,8 +37,8 @@ body {
     background-color: lightgreen;
 }
 .chosen {
-    background-color: #000;
-    color: #fff;
+    background-color: #000 !important;
+    color: #fff !important;
 }
 .pointerArm {
     margin: auto;
