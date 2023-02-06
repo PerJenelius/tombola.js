@@ -2,7 +2,6 @@
 
 const app = {
     backgrundColors: [
-        '#9400d3',
         '#4b0082',
         '#0000ff',
         '#00ff00',
@@ -11,7 +10,6 @@ const app = {
         '#ff0000'
     ],
     colors: [
-        '#fff',
         '#fff',
         '#fff',
         '#000',
