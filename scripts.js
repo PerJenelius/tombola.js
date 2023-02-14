@@ -79,7 +79,7 @@ const startTheWheel = () => {
         (function(j) {
             setTimeout(() => {
                 document.querySelector('#pointerArm').style.transform = `rotate(${i}deg)`;
-                if (i === fakeSpins * 360 + angle) {
+                if (i === Math.floor(fakeSpins * 360 + angle)) {
                     document.getElementById(random).classList.add('chosen');
                 }
             }, 2 * j);
