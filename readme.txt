@@ -5,5 +5,5 @@ Amnesty status for the round can be altered in the table on the left, but this d
 Push the start button to select a random person among the people whose amnesty is set to false.
 
 To run:
-Download the code to a folder on your computer.
+Download the code and unzip it in a folder on your computer.
 Open a browser and navigate to that folder. Open index.html. Done!
