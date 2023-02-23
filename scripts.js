@@ -24,27 +24,13 @@ const main = () => {
     renderNamelist();
 }
 
-const renderNamelist = () => {
-    const namelist = document.querySelector('#participantList');
-    for (let i = 0; i < participants.length; i++) {
-        namelist.innerHTML += `<li><input type="checkbox" ${participants[i].amnesty ? '' : 'checked'} onchange=updateStatus(${i}) /><span>${participants[i].name}</span></li>`;
-    }
-}
-
-const clearNametags = () => {
-    const labels = document.querySelectorAll('.participant');
-    labels.forEach(label => {
-        label.remove();
-    });
-}
-
 const renderNametags = () => {
     const radius = document.querySelector('.pointerFrame').offsetWidth / 2 - 70;
     const marginLeft = window.innerWidth / 2 - radius;
     const marginTop = window.innerHeight / 2 - radius;
     const partypants = participants.filter(p => !p.amnesty);
 
-    for (let i = 0; i < partypants.length; i++) {
+    partypants.map((pant, i) => {
         const colorIndex = i % app.backgrundColors.length;
         const angle = (i / (partypants.length / 2)) * Math.PI;
         const left = marginLeft + (radius * Math.cos(angle)) + radius - 50;
@@ -53,9 +39,27 @@ const renderNametags = () => {
         document.querySelector('#tombola').innerHTML +=
             `<p class="participant" id="${i}" 
                 style="top:${top}px; left:${left}px; background-color: ${app.backgrundColors[colorIndex]}; color: ${app.colors[colorIndex]};">
-                ${partypants[i].name}
+                ${pant.name}
             </p>`;
-    }
+    });
+}
+
+const renderNamelist = () => {
+    const namelist = document.querySelector('#participantList');
+    participants.map((participant, i) => {
+        namelist.innerHTML += 
+            `<li>
+                <input type="checkbox" ${participant.amnesty ? '' : 'checked'} onchange=updateStatus(${i}) />
+                <span>${participant.name}</span>
+            </li>`;
+    });
+}
+
+const clearNametags = () => {
+    const labels = document.querySelectorAll('.participant');
+    labels.forEach((label) => {
+        label.remove();
+    });
 }
 
 const updateStatus = (index) => {
@@ -69,20 +73,22 @@ const startTheWheel = () => {
     const random = Math.floor(Math.random() * partypants.length);
     const fakeSpins = Math.ceil(Math.random() * 5);
     const angle = random * (360 / partypants.length);
+    const totalAngle = Math.floor(fakeSpins * 360 + angle)
+    const moment = 2;
 
     document.querySelector('#pointerArm').style.transform = 'none';
     for (let nameLabel of document.querySelectorAll('.participant')) {
         nameLabel.classList.remove('chosen');
     }
 
-    for (let i = 0; i <= (fakeSpins * 360 + angle); i++) {
-        (function(j) {
+    for (let i = 0; i <= totalAngle; i++) {
+        ((j) => {
             setTimeout(() => {
                 document.querySelector('#pointerArm').style.transform = `rotate(${i}deg)`;
-                if (i === Math.floor(fakeSpins * 360 + angle)) {
+                if (i === totalAngle) {
                     document.getElementById(random).classList.add('chosen');
                 }
-            }, 2 * j);
+            }, moment * j);
         })(i)
     }
 }
